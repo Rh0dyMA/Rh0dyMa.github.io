@@ -137,6 +137,11 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
@@ -168,6 +173,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/14/Android-Studio-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Rhody Ma">
+      <meta itemprop="description" content="another me">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RhodyMa の page">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/14/Android-Studio-Learning/" class="post-title-link" itemprop="url">Android Studio Learning</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-03-14 16:59:02 / Modified: 17:03:49" itemprop="dateCreated datePublished" datetime="2023-03-14T16:59:02+08:00">2023-03-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="textview"><a href="#textview" class="headerlink" title="textview"></a>textview</h2><ol>
+<li>width, height, id, text, textcolor, textstyle, textsize, background, gravity</li>
+<li>Shadowcolor, shadowradius, shadowDx, shadowDy. &#x2F;&#x2F;带阴影</li>
+<li>singleline, focusable, focusableInTouchMode &#x2F;&#x2F;实现跑马灯效果</li>
+</ol>
+<h2 id="botton"><a href="#botton" class="headerlink" title="botton"></a>botton</h2><ol>
+<li>drawable, focused, preesed, enabled, selected, checked, checkable  &#x2F;&#x2F;statelistdrawable</li>
+<li>点击事件，长按事件，触摸事件</li>
+</ol>
+<h2 id="editText"><a href="#editText" class="headerlink" title="editText"></a>editText</h2><ol>
+<li>hint, textcolorhint, inputtype, drawableXxxx, drawablePadding, paddingXxxx, background &#x2F;&#x2F;主要属性</li>
+</ol>
+<h2 id="imageView"><a href="#imageView" class="headerlink" title="imageView"></a>imageView</h2><ol>
+<li>src, scaletype, maxheight, maxwidth, adjustViewBounds  &#x2F;&#x2F;主要属性</li>
+</ol>
+<h2 id="ProgreeBar"><a href="#ProgreeBar" class="headerlink" title="ProgreeBar"></a>ProgreeBar</h2><ol>
+<li>max, progress, indeterminate, style</li>
+</ol>
+<h2 id="Notification-amp-NotificationManager"><a href="#Notification-amp-NotificationManager" class="headerlink" title="Notification &amp; NotificationManager"></a>Notification &amp; NotificationManager</h2><ol>
+<li>创建一个notificationManager:<br>NotificationManager类是一个通知管理器类，这个对象是由系统维护的服务，是以单例模式的方式获得，所以一般并不直接实例化这个对象。在activity中，可以使用Activity.getSystemService(String)方法获得<br>NotificationManager对象Activity.getSystemService(String)方法可以通过Android系统级服务的句柄，返回对应的对象。在这里需要返回NotificationManager，所以直接传递Context.NOTIFICATION_SERVICE即可</li>
+<li>使用Builder构造器来创建Notification对象<br>使用NotificationCompact类的Builder构造器来创建Notification对象，可以保证程序在所有的版本上都能正常工作。Android8.0新增了通知渠道这个概念，如果没有设置，则通知无法在Android8.0的机器上显示</li>
+</ol>
+<h2 id="OkHttp"><a href="#OkHttp" class="headerlink" title="OkHttp"></a>OkHttp</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://square.github.io/okhttp/">https://square.github.io/okhttp/</a></li>
+<li>在build.gradle中加入<pre class="line-numbers language-none"><code class="language-none">implementation(&quot;com.squareup.okhttp3:okhttp:4.9.0&quot;)</code></pre></li>
+<li>在manifest中加入<pre class="line-numbers language-none"><code class="language-none">&lt;uses-permission android:name&#x3D;&quot;android.permission.INTERNET&quot; &#x2F;&gt;</code></pre></li>
+<li>同步请求 or 异步请求</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/14/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,7 +273,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2023/03/14/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2023/03/14/hello-world/" class="post-title-link" itemprop="url">Welcome to My home!</a>
         </h1>
 
         <div class="post-meta">
@@ -191,8 +282,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-03-14 15:06:46" itemprop="dateCreated datePublished" datetime="2023-03-14T15:06:46+08:00">2023-03-14</time>
+              <time title="Created: 2023-03-14 15:06:46 / Modified: 17:01:41" itemprop="dateCreated datePublished" datetime="2023-03-14T15:06:46+08:00">2023-03-14</time>
             </span>
 
           
@@ -301,17 +393,22 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/rhody.ma@nxp.com" title="E-Mail → rhody.ma@nxp.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
       </div>
-
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1894094482&auto=1&height=66"></iframe>
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
