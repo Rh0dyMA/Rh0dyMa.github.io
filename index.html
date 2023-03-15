@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="another me">
 <meta property="og:type" content="website">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -154,6 +154,10 @@
 
         </div>
       </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
     </div>
 
     
@@ -203,7 +207,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-03-15 14:01:08 / Modified: 14:11:15" itemprop="dateCreated datePublished" datetime="2023-03-15T14:01:08+08:00">2023-03-15</time>
+      <time title="Created: 2023-03-15 14:01:08 / Modified: 15:41:08" itemprop="dateCreated datePublished" datetime="2023-03-15T14:01:08+08:00">2023-03-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -216,6 +220,21 @@
     </span>
 
   
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>177</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
 </div>
 
         </div>
@@ -228,28 +247,15 @@
           <h2 id="Performance-investigation"><a href="#Performance-investigation" class="headerlink" title="Performance investigation"></a>Performance investigation</h2><ol>
 <li>Operators can be executed on: Cortex-M33 MCU, Cortex-A55 MPU, or Ethos-U65 NPU<ul>
 <li>TensorFlow lite: Ethos-U65 + Cortex-A55 MPU</li>
-<li>TesnorFlow Lite Micro (MCU)&#x2F;Inference API: Ethos-U65 + Cortex-M33 MCU</li>
-</ul>
-</li>
-</ol>
-<h2 id="Model-output-validation"><a href="#Model-output-validation" class="headerlink" title="Model output validation"></a>Model output validation</h2><ol>
-<li>Tools: Evaluation tools from TensorFlow <ul>
-<li>Task-Agnostic Evaluation: Inference Diff</li>
-<li>Task-Based Evaluation: Coco Object Detection; Imagenet Image Classification</li>
-</ul>
-</li>
-<li>Ethos-U specific:<ul>
-<li>Compare reference model with Vela compiled model:<br>– ref_model_file: string : Path to the TFlite file used as reference. If not set, the model from model_file will be used for refernce. <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ inference_diff_run_eval <span class="attribute">--ref_model_file</span>=&lt;original.tflite&gt; <span class="attribute">--model_file</span>=&lt;vela_compiled/tflite&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h2 id="Arm-vela-extension-in-eIQ-Toolkit"><a href="#Arm-vela-extension-in-eIQ-Toolkit" class="headerlink" title="Arm vela extension in eIQ Toolkit"></a>Arm vela extension in eIQ Toolkit</h2><p>eIQ toolkit <strong>simplifies</strong> the use of Arm Vela for <strong>customers</strong>. For more advanced usage the tool can be used as a standalone tool using the command-line.</p>
-<ol>
-<li>Extending other components other than eIQ Portal such as Model Tool or the command-line tools, is not supported in eIQ Toolkit 1.5(Q3)</li>
-<li>Document on how-to develop an extension(work in progress):</li>
-<li>Extensions are a separate release from eIQ ToolKit</li>
-</ol>
-
+<li>TesnorFlow Lite Micro (MCU)&#x2F;Inference API: Ethos-U65 + Cortex-M33 MCU
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/15/Machine-Learning/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -311,7 +317,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-03-15 13:48:46" itemprop="dateModified" datetime="2023-03-15T13:48:46+08:00">2023-03-15</time>
+      <time title="Modified: 2023-03-15 15:41:19" itemprop="dateModified" datetime="2023-03-15T15:41:19+08:00">2023-03-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -324,6 +330,21 @@
     </span>
 
   
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>313</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
 </div>
 
         </div>
@@ -336,32 +357,15 @@
           <h2 id="textview"><a href="#textview" class="headerlink" title="textview"></a>textview</h2><ol>
 <li>width, height, id, text, textcolor, textstyle, textsize, background, gravity</li>
 <li>Shadowcolor, shadowradius, shadowDx, shadowDy. &#x2F;&#x2F;带阴影</li>
-<li>singleline, focusable, focusableInTouchMode &#x2F;&#x2F;实现跑马灯效果</li>
-</ol>
-<h2 id="botton"><a href="#botton" class="headerlink" title="botton"></a>botton</h2><ol>
-<li>drawable, focused, preesed, enabled, selected, checked, checkable  &#x2F;&#x2F;statelistdrawable</li>
-<li>点击事件，长按事件，触摸事件</li>
-</ol>
-<h2 id="editText"><a href="#editText" class="headerlink" title="editText"></a>editText</h2><ol>
-<li>hint, textcolorhint, inputtype, drawableXxxx, drawablePadding, paddingXxxx, background &#x2F;&#x2F;主要属性</li>
-</ol>
-<h2 id="imageView"><a href="#imageView" class="headerlink" title="imageView"></a>imageView</h2><ol>
-<li>src, scaletype, maxheight, maxwidth, adjustViewBounds  &#x2F;&#x2F;主要属性</li>
-</ol>
-<h2 id="ProgreeBar"><a href="#ProgreeBar" class="headerlink" title="ProgreeBar"></a>ProgreeBar</h2><ol>
-<li>max, progress, indeterminate, style</li>
-</ol>
-<h2 id="Notification-amp-NotificationManager"><a href="#Notification-amp-NotificationManager" class="headerlink" title="Notification &amp; NotificationManager"></a>Notification &amp; NotificationManager</h2><ol>
-<li>创建一个notificationManager:<br>NotificationManager类是一个通知管理器类，这个对象是由系统维护的服务，是以单例模式的方式获得，所以一般并不直接实例化这个对象。在activity中，可以使用Activity.getSystemService(String)方法获得<br>NotificationManager对象Activity.getSystemService(String)方法可以通过Android系统级服务的句柄，返回对应的对象。在这里需要返回NotificationManager，所以直接传递Context.NOTIFICATION_SERVICE即可</li>
-<li>使用Builder构造器来创建Notification对象<br>使用NotificationCompact类的Builder构造器来创建Notification对象，可以保证程序在所有的版本上都能正常工作。Android8.0新增了通知渠道这个概念，如果没有设置，则通知无法在Android8.0的机器上显示</li>
-</ol>
-<h2 id="OkHttp"><a href="#OkHttp" class="headerlink" title="OkHttp"></a>OkHttp</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://square.github.io/okhttp/">https://square.github.io/okhttp/</a></li>
-<li>在build.gradle中加入<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">implementation</span><span class="params">(<span class="string">&quot;com.squareup.okhttp3:okhttp:4.9.0&quot;</span>)</span></span></span><br></pre></td></tr></table></figure></li>
-<li>在manifest中加入<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>同步请求 or 异步请求</li>
-</ol>
-
+<li>singleline, focusable, focusableInTouchMode &#x2F;&#x2F;实现跑马灯效果
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/14/Android-Studio-Learning/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -395,6 +399,22 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Rhody Ma</span>
 </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Word count total: </span>
+    <span title="Word count total">0k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Reading time total &asymp;</span>
+    <span title="Reading time total">2 mins.</span>
+  </span>
+</div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
   </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
 
@@ -402,10 +422,8 @@
   </footer>
 
   
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -414,7 +432,8 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
 
