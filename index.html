@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -134,7 +134,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -176,6 +176,113 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/11/Tflite_model%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Rhody Ma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RhodyMa の page">
+      <meta itemprop="description" content="another me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | RhodyMa の page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/11/Tflite_model%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">tflite_modle deploy</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-04-11 16:53:20 / Modified: 16:54:10" itemprop="dateCreated datePublished" datetime="2023-04-11T16:53:20+08:00">2023-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Knowledge/" itemprop="url" rel="index"><span itemprop="name">Knowledge</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>339</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>好的，这里是一个使用类封装 TFLite 模型应用的示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TFLiteModel</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model_path</span>):</span><br><span class="line">        self.interpreter = tf.lite.Interpreter(model_path=model_path)</span><br><span class="line">        self.interpreter.allocate_tensors()</span><br><span class="line">        self.input_details = self.interpreter.get_input_details()</span><br><span class="line">        self.output_details = self.interpreter.get_output_details()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self, input_data</span>):</span><br><span class="line">        input_data = self.prepare_input_data(input_data)</span><br><span class="line">        self.interpreter.set_tensor(self.input_details[<span class="number">0</span>][<span class="string">&#x27;index&#x27;</span>], input_data)</span><br><span class="line">        self.interpreter.invoke()</span><br><span class="line">        output_data = self.interpreter.get_tensor(self.output_details[<span class="number">0</span>][<span class="string">&#x27;index&#x27;</span>])</span><br><span class="line">        output_result = self.process_output_data(output_data)</span><br><span class="line">        <span class="keyword">return</span> output_result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prepare_input_data</span>(<span class="params">self, input_data</span>):</span><br><span class="line">        <span class="comment"># 根据具体模型和应用场景编写输入数据格式化代码</span></span><br><span class="line">        <span class="keyword">return</span> input_data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_output_data</span>(<span class="params">self, output_data</span>):</span><br><span class="line">        <span class="comment"># 根据具体模型和应用场景编写输出结果格式化代码</span></span><br><span class="line">        <span class="keyword">return</span> output_data</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例代码中，我们定义了一个名为 <code>TFLiteModel</code> 的类，它具有以下方法：</p>
+<ul>
+<li><code>__init__(self, model_path)</code>：类的构造函数，用于加载 TFLite 模型，并获取输入和输出张量的信息。</li>
+<li><code>predict(self, input_data)</code>：用于运行模型，并返回输出结果。</li>
+<li><code>prepare_input_data(self, input_data)</code>：用于将输入数据转换为与模型输入张量相同的格式。</li>
+<li><code>process_output_data(self, output_data)</code>：用于将输出结果转换为所需的格式。</li>
+</ul>
+<p>在实际应用中，可以使用 <code>TFLiteModel</code> 类的实例来加载模型，并使用 <code>predict()</code> 方法对输入数据进行预测，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model = TFLiteModel(<span class="string">&quot;model.tflite&quot;</span>)</span><br><span class="line">output_result = model.predict(input_data)</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，以上示例代码中的 <code>prepare_input_data()</code> 和 <code>process_output_data()</code> 方法需要根据具体模型和应用场景编写相应的代码，以便将输入数据和输出结果转换为正确的格式。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/11/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,7 +313,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-04-11 16:01:08 / Modified: 16:45:29" itemprop="dateCreated datePublished" datetime="2023-04-11T16:01:08+08:00">2023-04-11</time>
+      <time title="Created: 2023-04-11 16:01:08 / Modified: 16:46:12" itemprop="dateCreated datePublished" datetime="2023-04-11T16:01:08+08:00">2023-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -717,7 +824,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">10 mins.</span>
+    <span title="Reading time total">11 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
