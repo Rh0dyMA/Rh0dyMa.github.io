@@ -27,7 +27,7 @@
 <meta property="og:description" content="好的，这里是一个使用类封装 TFLite 模型应用的示例代码： 123456789101112131415161718192021222324import tensorflow as tfclass TFLiteModel:    def __init__(self, model_path):        self.interpreter &#x3D; tf.lite.Interpreter(model_">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-11T08:53:20.000Z">
-<meta property="article:modified_time" content="2023-04-11T08:54:10.210Z">
+<meta property="article:modified_time" content="2023-04-11T09:31:13.088Z">
 <meta property="article:author" content="Rhody Ma">
 <meta property="article:tag" content="NXP">
 <meta property="article:tag" content="tensorflow">
@@ -103,7 +103,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -116,6 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">输入音频数据</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -212,7 +213,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-04-11 16:53:20 / Modified: 16:54:10" itemprop="dateCreated datePublished" datetime="2023-04-11T16:53:20+08:00">2023-04-11</time>
+      <time title="Created: 2023-04-11 16:53:20 / Modified: 17:31:13" itemprop="dateCreated datePublished" datetime="2023-04-11T16:53:20+08:00">2023-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -231,14 +232,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>339</span>
+      <span>810</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>3 mins.</span>
     </span>
 </div>
 
@@ -261,6 +262,19 @@
 </ul>
 <p>在实际应用中，可以使用 <code>TFLiteModel</code> 类的实例来加载模型，并使用 <code>predict()</code> 方法对输入数据进行预测，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model = TFLiteModel(<span class="string">&quot;model.tflite&quot;</span>)</span><br><span class="line">output_result = model.predict(input_data)</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，以上示例代码中的 <code>prepare_input_data()</code> 和 <code>process_output_data()</code> 方法需要根据具体模型和应用场景编写相应的代码，以便将输入数据和输出结果转换为正确的格式。</p>
+<h3 id="输入音频数据"><a href="#输入音频数据" class="headerlink" title="输入音频数据"></a>输入音频数据</h3><p>好的，如果使用的模型是语音分类的 TFLite 模型，输入的是一维的音频，并使用左声道，则可以在 <code>TFLiteModel</code> 类中添加一个 <code>load_audio()</code> 方法，用于加载音频文件并将其转换为模型所需的输入格式。</p>
+<p>以下是一个示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> scipy.io <span class="keyword">import</span> wavfile</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TFLiteModel</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model_path</span>):</span><br><span class="line">        self.interpreter = tf.lite.Interpreter(model_path=model_path)</span><br><span class="line">        self.interpreter.allocate_tensors()</span><br><span class="line">        self.input_details = self.interpreter.get_input_details()</span><br><span class="line">        self.output_details = self.interpreter.get_output_details()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self, input_data</span>):</span><br><span class="line">        input_data = self.prepare_input_data(input_data)</span><br><span class="line">        self.interpreter.set_tensor(self.input_details[<span class="number">0</span>][<span class="string">&#x27;index&#x27;</span>], input_data)</span><br><span class="line">        self.interpreter.invoke()</span><br><span class="line">        output_data = self.interpreter.get_tensor(self.output_details[<span class="number">0</span>][<span class="string">&#x27;index&#x27;</span>])</span><br><span class="line">        output_result = self.process_output_data(output_data)</span><br><span class="line">        <span class="keyword">return</span> output_result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prepare_input_data</span>(<span class="params">self, input_data</span>):</span><br><span class="line">        <span class="comment"># 根据具体模型和应用场景编写输入数据格式化代码</span></span><br><span class="line">        <span class="keyword">return</span> input_data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_output_data</span>(<span class="params">self, output_data</span>):</span><br><span class="line">        <span class="comment"># 根据具体模型和应用场景编写输出结果格式化代码</span></span><br><span class="line">        <span class="keyword">return</span> output_data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_audio</span>(<span class="params">self, file_path</span>):</span><br><span class="line">        sample_rate, wav_data = wavfile.read(file_path)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(wav_data.shape) &gt; <span class="number">1</span>:</span><br><span class="line">            wav_data = wav_data[:, <span class="number">0</span>]  <span class="comment"># 取左声道</span></span><br><span class="line">        input_data = np.array(wav_data, dtype=np.float32)</span><br><span class="line">        <span class="keyword">return</span> input_data, sample_rate</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例代码中，我们添加了一个名为 <code>load_audio()</code> 的方法，用于加载音频文件并将其转换为模型所需的输入格式。该方法接受一个参数：</p>
+<ul>
+<li><code>file_path</code>：音频文件的路径。</li>
+</ul>
+<p>在方法中，我们使用 <code>scipy.io.wavfile</code> 模块加载音频文件，并将其转换为 Numpy 数组格式。如果音频数据是立体声（即包含左右声道），我们将仅使用左声道。然后，我们将输入数据转换为浮点数格式，并返回转换后的数据和采样率。</p>
+<p>在使用 <code>TFLiteModel</code> 类进行预测时，可以使用 <code>load_audio()</code> 方法加载音频文件，然后将其作为 <code>predict()</code> 方法的输入。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = TFLiteModel(<span class="string">&quot;model.tflite&quot;</span>)</span><br><span class="line">input_data, sample_rate = model.load_audio(<span class="string">&quot;audio.wav&quot;</span>)</span><br><span class="line">output_result = model.predict(input_data)</span><br></pre></td></tr></table></figure>
 
 <p>需要注意的是，以上示例代码中的 <code>prepare_input_data()</code> 和 <code>process_output_data()</code> 方法需要根据具体模型和应用场景编写相应的代码，以便将输入数据和输出结果转换为正确的格式。</p>
 
@@ -325,7 +339,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">11 mins.</span>
+    <span title="Reading time total">13 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
