@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="以下是一个简单的Python脚本，可以将.h5模型转换为.tflite模型并使用代表性数据集对其进行量化。该脚本使用TensorFlow 2.x版本，并假定你已经安装了必要的软件包（包括TensorFlow）。 12345678910111213141516171819202122232425import tensorflow as tfimport numpy as npimport scipy">
+    <meta name="description" content="QuantizationQuantization is the process of converting floating-point model parameters to fixed-point representation, which is a more efficient way of representing model parameters for deployment on mo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="h5_to_tflite_quantize">
 <meta property="og:url" content="http://example.com/2023/04/14/h5%E6%A8%A1%E5%9E%8B%E8%BD%ACtflite%E5%B9%B6%E9%87%8F%E5%8C%96/index.html">
 <meta property="og:site_name" content="RhodyMa の page">
-<meta property="og:description" content="以下是一个简单的Python脚本，可以将.h5模型转换为.tflite模型并使用代表性数据集对其进行量化。该脚本使用TensorFlow 2.x版本，并假定你已经安装了必要的软件包（包括TensorFlow）。 12345678910111213141516171819202122232425import tensorflow as tfimport numpy as npimport scipy">
+<meta property="og:description" content="QuantizationQuantization is the process of converting floating-point model parameters to fixed-point representation, which is a more efficient way of representing model parameters for deployment on mo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-14T03:23:25.000Z">
-<meta property="article:modified_time" content="2023-04-14T03:25:46.570Z">
+<meta property="article:modified_time" content="2023-04-14T08:49:08.057Z">
 <meta property="article:author" content="Rhody Ma">
 <meta property="article:tag" content="tensorflow">
 <meta property="article:tag" content="Machine Learning">
@@ -103,7 +103,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -116,6 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Quantization"><span class="nav-number">1.</span> <span class="nav-text">Quantization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reprenstative-dataset"><span class="nav-number">2.</span> <span class="nav-text">Reprenstative dataset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Example-code"><span class="nav-number">3.</span> <span class="nav-text">Example code</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -212,7 +213,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-04-14 11:23:25 / Modified: 11:25:46" itemprop="dateCreated datePublished" datetime="2023-04-14T11:23:25+08:00">2023-04-14</time>
+      <time title="Created: 2023-04-14 11:23:25 / Modified: 16:49:08" itemprop="dateCreated datePublished" datetime="2023-04-14T11:23:25+08:00">2023-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -231,14 +232,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>421</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -249,13 +250,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>以下是一个简单的Python脚本，可以将.h5模型转换为.tflite模型并使用代表性数据集对其进行量化。该脚本使用TensorFlow 2.x版本，并假定你已经安装了必要的软件包（包括TensorFlow）。</p>
+        <h1 id="Quantization"><a href="#Quantization" class="headerlink" title="Quantization"></a>Quantization</h1><p>Quantization is the process of converting floating-point model parameters to fixed-point representation, which is a more efficient way of representing model parameters for deployment on mobile and embedded devices. TensorFlow Lite provides several methods for quantizing models, such as post-training quantization, dynamic range quantization, and full integer quantization.</p>
+<span id="more"></span>
+
+<p>Post-training quantization is a simple and fast way to quantize a model after it has been trained. It involves converting the model’s floating-point weights to 8-bit integers and using a lookup table to map the floating-point values to the nearest quantized values during inference.</p>
+<p>Dynamic range quantization involves determining the range of each weight tensor in the model using a representative dataset, and then quantizing each tensor to a fixed-point representation based on its dynamic range.</p>
+<p>Full integer quantization involves quantizing all model parameters to 8-bit integers or lower, including weights, activations, and biases. This method can provide a significant reduction in model size and computation time, but may also result in a loss of accuracy.</p>
+<p>Overall, quantization is an important technique for optimizing machine learning models for deployment on mobile and embedded devices, and TensorFlow Lite provides several methods for efficient and effective quantization of models.</p>
+<p>TFLite量化是一种将模型参数从浮点数转换为定点数的过程，可以提高模型在移动和嵌入式设备上的效率。量化有多种方法，包括后训练量化、动态范围量化和全整数量化等。其中，后训练量化简单且快速，动态范围量化可以根据数据集动态确定每个权重张量的范围，全整数量化可以将所有参数转换为8位整数或更低。这些方法可帮助优化机器学习模型在移动和嵌入式设备上的部署效率。</p>
+<h1 id="Reprenstative-dataset"><a href="#Reprenstative-dataset" class="headerlink" title="Reprenstative dataset"></a>Reprenstative dataset</h1><p>A representative dataset is a set of samples that represents the input data that may be encountered in a real-world use case. In the process of quantizing a model, we need to specify a representative dataset to estimate the range of the model’s parameters.</p>
+<p>During quantization, we use the representative dataset to estimate the range of the model’s parameters to ensure that the model does not lose important information when converted from floating-point to fixed-point representation. If we use a small amount of data or non-representative data for quantization, the model may lose accuracy in some cases because different input data may result in different parameter ranges.</p>
+<p>The representative dataset should contain common input data in the application scenario, such as minimum value, maximum value, mean, variance, etc. For image classification tasks, the representative dataset can include a set of representative image samples; for text classification tasks, the representative dataset can include a set of representative text samples.</p>
+<p>In TensorFlow, we can use the <code>tf.lite.RepresentativeDataset</code> class to define a representative dataset and use it during the model conversion process for quantization.</p>
+<p>The representative dataset是一组样本数据，用于估计模型参数的范围。在TFLite量化过程中，需要使用代表性数据集来确定模型参数的范围，以确保在定点数表示中不会丢失重要信息。代表性数据集应该包含实际应用场景中常见的输入数据，例如最小值、最大值、均值、方差等。通过使用代表性数据集，可以有效提高模型在移动和嵌入式设备上的部署效率。</p>
+<h1 id="Example-code"><a href="#Example-code" class="headerlink" title="Example code"></a>Example code</h1><p>以下是一个简单的Python脚本，可以将.h5模型转换为.tflite模型并使用代表性数据集对其进行量化。该脚本使用TensorFlow 2.x版本，并假定你已经安装了必要的软件包（包括TensorFlow）。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.io.wavfile <span class="keyword">as</span> wav</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the deepspeech model</span></span><br><span class="line">model = tf.keras.models.load_model(<span class="string">&#x27;deepspeech_model.h5&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the representative dataset generator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">representative_dataset_gen</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">        <span class="comment"># Load a sample WAV file</span></span><br><span class="line">        rate, data = wav.read(<span class="string">f&quot;sample_<span class="subst">&#123;i&#125;</span>.wav&quot;</span>)</span><br><span class="line">        <span class="comment"># Preprocess the input</span></span><br><span class="line">        data = np.expand_dims(data.astype(np.float32) / np.iinfo(np.int16).<span class="built_in">max</span>, axis=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">yield</span> [data]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the model to a TFLite model with quantization</span></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_keras_model(model)</span><br><span class="line">converter.optimizations = [tf.lite.Optimize.DEFAULT]</span><br><span class="line">converter.representative_dataset = representative_dataset_gen</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save the TFLite model to a file</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;deepspeech_model.tflite&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(tflite_model)</span><br></pre></td></tr></table></figure>
 
 <p>在这个脚本中，我们首先加载了深度语音识别模型（在这里假设为’deepspeech_model.h5’）。接下来，我们定义了一个代表性数据集生成器，它会生成100个随机音频文件的输入数据，这些文件应该代表了实际使用场景中的典型输入。我们使用Scipy库来读取和处理音频文件。</p>
 <p>然后，我们使用TFLite转换器将模型转换为TFLite格式，并使用默认的优化选项进行量化。我们还将代表性数据集生成器传递给转换器，以便它可以了解模型的输入范围。</p>
 <p>最后，我们将TFLite模型保存到一个文件中（在这里为’deepspeech_model.tflite’）。</p>
-<p>请注意，这个脚本只是一个简单的例子，你可能需要根据自己的需求进行修改和调整。特别是，你可能需要修改代表性数据集生成器，以便它可以生成适合你的应用程序的典型输入数据。</p>
+<p>请注意，这个脚本只是一个简单的例子，可能需要根据自己的需求进行修改和调整。特别是，可能需要修改代表性数据集生成器，以便它可以生成适合你的应用程序的典型输入数据。</p>
 
     </div>
 
@@ -311,14 +325,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Word count total: </span>
-    <span title="Word count total">4k</span>
+    <span title="Word count total">5k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">14 mins.</span>
+    <span title="Reading time total">17 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
