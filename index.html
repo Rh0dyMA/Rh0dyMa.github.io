@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -134,7 +134,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -176,6 +176,106 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/14/h5%E6%A8%A1%E5%9E%8B%E8%BD%ACtflite%E5%B9%B6%E9%87%8F%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Rhody Ma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RhodyMa の page">
+      <meta itemprop="description" content="another me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | RhodyMa の page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/14/h5%E6%A8%A1%E5%9E%8B%E8%BD%ACtflite%E5%B9%B6%E9%87%8F%E5%8C%96/" class="post-title-link" itemprop="url">h5_to_tflite_quantize</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-04-14 11:23:25 / Modified: 11:25:46" itemprop="dateCreated datePublished" datetime="2023-04-14T11:23:25+08:00">2023-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Knowledge/" itemprop="url" rel="index"><span itemprop="name">Knowledge</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>421</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>以下是一个简单的Python脚本，可以将.h5模型转换为.tflite模型并使用代表性数据集对其进行量化。该脚本使用TensorFlow 2.x版本，并假定你已经安装了必要的软件包（包括TensorFlow）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.io.wavfile <span class="keyword">as</span> wav</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the deepspeech model</span></span><br><span class="line">model = tf.keras.models.load_model(<span class="string">&#x27;deepspeech_model.h5&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the representative dataset generator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">representative_dataset_gen</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">        <span class="comment"># Load a sample WAV file</span></span><br><span class="line">        rate, data = wav.read(<span class="string">f&quot;sample_<span class="subst">&#123;i&#125;</span>.wav&quot;</span>)</span><br><span class="line">        <span class="comment"># Preprocess the input</span></span><br><span class="line">        data = np.expand_dims(data.astype(np.float32) / np.iinfo(np.int16).<span class="built_in">max</span>, axis=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">yield</span> [data]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the model to a TFLite model with quantization</span></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_keras_model(model)</span><br><span class="line">converter.optimizations = [tf.lite.Optimize.DEFAULT]</span><br><span class="line">converter.representative_dataset = representative_dataset_gen</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save the TFLite model to a file</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;deepspeech_model.tflite&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(tflite_model)</span><br></pre></td></tr></table></figure>
+
+<p>在这个脚本中，我们首先加载了深度语音识别模型（在这里假设为’deepspeech_model.h5’）。接下来，我们定义了一个代表性数据集生成器，它会生成100个随机音频文件的输入数据，这些文件应该代表了实际使用场景中的典型输入。我们使用Scipy库来读取和处理音频文件。</p>
+<p>然后，我们使用TFLite转换器将模型转换为TFLite格式，并使用默认的优化选项进行量化。我们还将代表性数据集生成器传递给转换器，以便它可以了解模型的输入范围。</p>
+<p>最后，我们将TFLite模型保存到一个文件中（在这里为’deepspeech_model.tflite’）。</p>
+<p>请注意，这个脚本只是一个简单的例子，你可能需要根据自己的需求进行修改和调整。特别是，你可能需要修改代表性数据集生成器，以便它可以生成适合你的应用程序的典型输入数据。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/11/Tflite_model%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -204,9 +304,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2023-04-11 16:53:20 / Modified: 17:31:13" itemprop="dateCreated datePublished" datetime="2023-04-11T16:53:20+08:00">2023-04-11</time>
+      <time title="Created: 2023-04-11 16:53:20" itemprop="dateCreated datePublished" datetime="2023-04-11T16:53:20+08:00">2023-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-04-14 11:22:31" itemprop="dateModified" datetime="2023-04-14T11:22:31+08:00">2023-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -830,14 +936,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Word count total: </span>
-    <span title="Word count total">3k</span>
+    <span title="Word count total">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">13 mins.</span>
+    <span title="Reading time total">14 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
